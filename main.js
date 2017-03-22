@@ -1,14 +1,18 @@
-var imageArray = ["Bach - Jesu, Joy of Man's Desiring.gif", 'Britney Spears - Toxic.gif', 'Chopin - Mazurka Op6 No1.gif', 'Coldplay - A Sky Full of Stars.gif', 'Coldplay - Paradise.gif', 'Crystallize.gif', 'Cutie Honey - Opening.gif', 'Game_of_Thrones.gif', 'Halo_One_Final_Effort_Complex.gif', 'Halo_One_Final_Effort.gif', 'Oblivion.gif', "Star Wars - Rey's Theme.gif", 'Sweetwater_Train_Theme.gif', 'Tetris - Theme A.gif', 'The_Shire.gif', 'Utena - Hikarisasu Niwa - Sunlit Garden.gif', 'Westworld_MainTitles_HalcyonMusic.gif'];
-var imageDurationArray = [186540, 150530, 159350, 194750, 203180, 232990, 60510, 72000, 148470, 105730, 267440, 106730, 34590, 54000, 116890, 71650, 69940];
+var imageArray = ["Bach - Jesu, Joy of Man's Desiring.gif", 'Britney Spears - Toxic.gif', 'Chopin - Mazurka Op6 No1.gif', 'Coldplay - A Sky Full of Stars.gif', 'Coldplay - Paradise.gif', 'Crystallize.gif', 'Game_of_Thrones.gif', 'Halo_One_Final_Effort_Complex.gif', 'Halo_One_Final_Effort.gif', 'Oblivion.gif', "Star Wars - Rey's Theme.gif", 'Sweetwater_Train_Theme.gif', 'Tetris - Theme A.gif', 'The_Shire.gif', 'Utena - Hikarisasu Niwa - Sunlit Garden.gif', 'Westworld_MainTitles_HalcyonMusic.gif'];
+var imageDurationArray = [186540, 150530, 159350, 194750, 203180, 232990, 72000, 148470, 105730, 267440, 106730, 34590, 54000, 116890, 71650, 69940];
 
 $(document).ready(function () {
-    window.timeoutHandle = setTimeout(next, 5000);
+    window.timeoutHandle = setTimeout(startPlay, 5000);
     var currentIndex = 0;
     var nextIndex = 1;
 
+    var startPlay = function () {
+        $("#main-display-image").hide();
+        play();
+    };
+
     var previous = function () {
         $("#main-display-image").hide();
-        $("#track-name").text("Loading...");
         if (currentIndex == 0) {
             currentIndex = imageArray.length - 1;
         } else {
@@ -20,7 +24,6 @@ $(document).ready(function () {
 
     var next = function () {
         $("#main-display-image").hide();
-        $("#track-name").text("Loading...");
         if (currentIndex == imageArray.length - 1) {
             currentIndex = 0;
         } else {
@@ -32,6 +35,8 @@ $(document).ready(function () {
 
     var play = function () {
         var loadingImage = new Image();
+        $("#track-name").text("Loading " + imageArray[currentIndex] + "...");
+        $("#next-track-name").text("");
         loadingImage.onload = function() {
             $("#main-display-image").attr("src", this.src);
             $("#main-display-image").show();
